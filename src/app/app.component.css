@@ -1,0 +1,315 @@
+
+.button {
+  background-color: #3E72E3;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 22px 10px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  border-radius: 4px;
+}
+
+.container{
+  display: grid;
+  justify-content: center;
+}
+
+.button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.uploadBtn {
+  background-color: #3E72E3;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  border-radius: 4px;
+}
+
+
+.uploadBtn:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.brandImg{
+  margin-top: 25px;
+  height: 200px;
+}
+
+
+.brandTitle{
+  font-family: "Times New Roman";
+  margin-top: 25px;
+  font-weight: bold;
+}
+
+
+.file {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+
+.tabs{
+  flex-wrap: wrap;
+  width: 1100px;
+}
+
+.tabButton{
+  margin: 13px 6px;
+  padding: 22px !important;
+}
+
+.file-input label {
+  display: block;
+  position: relative;
+  width: 300px;
+  height: 50px;
+  border-radius: 25px;
+  background-color: #3E72E3;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform .2s ease-out;
+}
+
+.input-container{
+  display: grid;
+  justify-content: center;
+  padding-top: 22px;
+}
+
+.form-class{
+  margin-top: 15px;
+  display: grid;
+}
+.form-class1{
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+.distance{
+  display: grid;
+  width: 100%;
+}
+
+.file-input{
+  padding-bottom: 30px;
+}
+
+input:hover + label,
+input:focus + label {
+  transform: scale(1.02);
+}
+
+input:focus + label {
+  outline: 1px solid #000;
+  outline: -webkit-focus-ring-color auto 2px;
+}
+
+.pdfClass{
+  padding: 10px 0 50px 0;
+}
+
+.showSelData{
+  padding: 15px 0 15px 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.dataSection{
+  display: flex;
+  justify-content: center;
+  font-size: 22px;
+}
+.dataSection>p:nth-child(2){
+  padding-left: 15px;
+}
+.dataSection>p:nth-child(1){
+  font-weight: bold;
+}
+
+.pdfContainer{
+  width: 794px;
+  height: 1123px;
+  background-color: white;
+  padding: 30px 40px;
+  position: relative;
+}
+
+.headerName{
+  width: 100%;
+  height: 32px;
+  background-color: white;
+  font-family: Arial;
+  font-size: 15px;
+  color: #000;
+  resize: none;
+  overflow: hidden;
+  border: none;
+}
+:where(.headerName, .date, .manufacturerInfo, .vehicleInput):hover{
+  border: 2px dashed #000;
+}
+
+.date{
+  width: 100%;
+  height: 32px;
+  background-color: white;
+  font-family: Arial;
+  font-size: 16px;
+  color: #000;
+  resize: none;
+  overflow: hidden;
+  border: none;
+  margin-top: 25px;
+}
+.manufacturerInfo{
+  width: 100%;
+  height: 32px;
+  background-color: white;
+  font-family: Arial;
+  color: #000;
+  resize: none;
+  overflow: hidden;
+  border: none;
+  margin: 12px 0 5px 0;
+  text-align: right;
+  font-weight: bold;
+  font-size: 17px;
+}
+.manufacturerNote{
+  width: 100%;
+  height: 32px;
+  background-color: white;
+  font-family: Arial;
+  color: #000;
+  resize: none;
+  overflow: hidden;
+  border: none;
+  text-align: left;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.address{
+  width: 100%;
+  background-color: white;
+  font-family: Arial;
+  color: #000;
+  resize: none;
+  overflow: hidden;
+  border: none;
+  text-align: right;
+  font-size: 16px;
+}
+.vehicleInput{
+  background-color: white;
+  font-family: Arial;
+  color: #000;
+  resize: none;
+  overflow: hidden;
+  border: none;
+  font-size: 16px;
+}
+.textareaInput{
+  background-color: white;
+  font-family: Arial;
+  color: #000;
+  resize: none;
+  border: none;
+  font-size: 16px;
+}
+
+.textareaInput.textarea.ManufacturerNote{
+  width: 100% ;
+  line-height: 15px;
+  font-size: 14px;
+  /* height: 36px; */
+
+}
+.ManufacturerNoteLabel{
+  font-family: Arial;
+  color: #000;
+  width: 100% ;
+  line-height: 15px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.textareaInput.textarea.YearNote{
+  width: 100% ;
+  line-height: 15px;
+  font-size: 14px;
+  /* height: 130px; */
+}
+
+.vehicleSection{
+  display: flex;
+  justify-content: left;
+  height: 24px;
+}
+
+.vehicleSection>label{
+  margin-right: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  font-family: Arial;
+}
+.vehicleSection>input{
+  width: 300px;
+}
+
+.amountSection{
+  display: flex;
+  justify-content: space-between;
+  height: 26px;
+  margin-bottom: 35px;
+}
+.amountSection>.vehicleInput{
+  font-weight: bold;
+  text-align: right;
+}
+
+
+
+.amountSection>label{
+  margin-right: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  font-family: Arial;
+}
+
+.footerText {
+  position: absolute;
+  bottom: 17px;
+  font-family: Arial;
+  font-size: 12px;
+  color: grey;
+  font-style: italic;
+  text-align: justify;
+  /* margin-right: 30px; */
+  padding-right: 86px;
+  width: 100%;
+  line-height: 14px;
+}
+
+
+

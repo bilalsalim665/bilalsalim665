@@ -1,0 +1,305 @@
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <span class="text-align-center"><img src="../assets/just_round_logo.png"  alt="" class="brandImg"></span>
+  </div>
+  <div class="d-flex justify-content-center brandTitle">
+    <h1>Gary's Auto</h1>
+  </div>
+  <div class="d-flex justify-content-center tabs" *ngIf="!displayPDF">
+    <div class="p-4 button tabButton" *ngFor="let item of autoTypes" (click)="tabchange(item)">{{item.name}}</div>
+  </div>
+  <div class="d-flex justify-content-center tabs" *ngIf="displayPDF">
+    <div class="p-4 button tabButton" (click)="reset()">Reset</div>
+    <div class="p-4 button tabButton" (click)="openPDF('png')">Download PNG</div>
+    <div class="p-4 button tabButton" (click)="openPDF('pdf')">Download PDF</div>
+  </div>
+  <div class="d-flex justify-content-center brandTitle"  *ngIf="!displayPDF">
+    <h2>{{selectedVehicle.name}}</h2>
+  </div>
+
+  <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()"  *ngIf="!displayPDF">
+    <div class="input-container">
+      <div class="file-input">
+        <input type="file" id="file" class="file" name="uploadedImage" accept=".pdf"
+        (change)="onFileSelect($event)" #UploadFileInput>
+        <label for="file">{{fileInputLabel || 'Choose File'}}</label>
+      </div>
+      <div class="form-class1">
+        <div class="distance">
+          <label for="distance">Distance</label>
+          <input type="number" name="distance"  formControlName="distance"  #distance>
+        </div>
+        <button style="margin-left: 10px;" type="button" class="btn btn-primary" (click)="openNotes()">Notes</button>
+      </div>
+      <div class="form-class">
+        <label for="distance">Adjustment</label>
+        <input type="number" name="adjustment"  formControlName="adjustment"  #distance>
+      </div>
+      <div class="form-class">
+        <label for="slides">Slides</label>
+        <select formControlName="slides" class="form-control" placeholder="Select Slides">
+            <option  [ngValue]="''">Select Slides</option>
+            <option *ngFor="let opt of ['Yes','No']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-class"  *ngIf="selectedVehicle.id!=='Appraisal'">
+        <label for="tires">Tires</label>
+        <select formControlName="tires" class="form-control" placeholder="Select Tires">
+            <option  [ngValue]="''">Select Tires</option>
+            <option *ngFor="let opt of ['Yes','No']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-class" *ngIf="selectedVehicle.id.includes('Motorhome')||selectedVehicle.id==='Appraisal'">
+        <label for="miles_adjustment">Miles Adjustment</label>
+        <select formControlName="miles_adjustment" class="form-control" placeholder="Select Miles Adjustment">
+            <option  [ngValue]="''">Select Miles Adjustment</option>
+            <option [ngValue]="'60KMiles'">60K + Miles</option>
+            <option [ngValue]="'90KMiles'">90K + Miles</option>
+        </select>
+      </div>
+
+
+      <div class="form-class"  *ngIf="selectedVehicle.id==='Appraisal'">
+        <label for="tires">Tires</label>
+        <select formControlName="tires" class="form-control" placeholder="Select Tires">
+            <option  [ngValue]="''">Select Tires</option>
+            <option *ngFor="let opt of ['No','Trailer','Motorhome']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-class"  *ngIf="selectedVehicle.id==='Appraisal'">
+        <label for="unit">Unit</label>
+        <select formControlName="unit" class="form-control" placeholder="Select Unit">
+            <option  [ngValue]="''">Select Unit</option>
+            <option *ngFor="let opt of ['Trailer Motorhome','5th wheel','2020 +','High $','Mid$low $','Older']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-class"  *ngIf="selectedVehicle.id==='Appraisal'">
+        <label for="nonBrand">Non-Branded </label>
+        <select formControlName="nonBrand" class="form-control" placeholder="Select Non-Branded">
+            <option  [ngValue]="''">Select Non-Branded</option>
+            <option *ngFor="let opt of ['Yes','No']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-class"  *ngIf="selectedVehicle.id==='Appraisal'">
+        <label for="graphics">Graphics </label>
+        <select formControlName="graphics" class="form-control" placeholder="Select Graphics">
+            <option  [ngValue]="''">Select Graphics</option>
+            <option *ngFor="let opt of ['Yes','No']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-class"  *ngIf="selectedVehicle.id==='Appraisal'">
+        <label for="awning">Awning </label>
+        <select formControlName="awning" class="form-control" placeholder="Select Awning">
+            <option  [ngValue]="''">Select Awning</option>
+            <option *ngFor="let opt of ['Yes','No']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-class"  *ngIf="selectedVehicle.id==='Appraisal'">
+        <label for="upholstery">Upholstery </label>
+        <select formControlName="upholstery" class="form-control" placeholder="Select Upholstery">
+            <option  [ngValue]="''">Select Upholstery</option>
+            <option *ngFor="let opt of ['Yes','No']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-class"  *ngIf="selectedVehicle.id==='Appraisal'">
+        <label for="paint">Paint</label>
+        <input type="number" name="paint"  formControlName="paint"  #paint>
+      </div>
+      <div class="form-class"  *ngIf="selectedVehicle.id==='Appraisal'">
+        <label for="FurnitureReplacement">Furniture Replacement </label>
+        <select formControlName="FurnitureReplacement" class="form-control" placeholder="Select Furniture Replacement">
+            <option  [ngValue]="''">Select Furniture Replacement</option>
+            <option *ngFor="let opt of ['Yes','No']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-class"  *ngIf="selectedVehicle.id==='Appraisal'">
+        <label for="NeedBatteries">Need Batteries </label>
+        <select formControlName="NeedBatteries" class="form-control" placeholder="Select Need Batteries">
+            <option  [ngValue]="''">Select Need Batteries</option>
+            <option *ngFor="let opt of ['Yes','No']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-class"  *ngIf="selectedVehicle.id==='Appraisal'">
+        <label for="NeedGenerator">Need Generator </label>
+        <select formControlName="NeedGenerator" class="form-control" placeholder="Select Need Generator">
+            <option  [ngValue]="''">Select Need Generator</option>
+            <option *ngFor="let opt of ['Yes','No']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-class"  *ngIf="selectedVehicle.id==='Appraisal'">
+        <label for="Smokedin">Smoked in </label>
+        <select formControlName="Smokedin" class="form-control" placeholder="Select Smoked in">
+            <option  [ngValue]="''">Select Smoked in</option>
+            <option *ngFor="let opt of ['Yes','No']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-class"  *ngIf="selectedVehicle.id==='Appraisal'">
+        <label for="NeedsWindshield">Needs Windshield </label>
+        <select formControlName="NeedsWindshield" class="form-control" placeholder="Select Needs Windshield">
+            <option  [ngValue]="''">Select Needs Windshield</option>
+            <option *ngFor="let opt of ['No','Low $','High $']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-class"  *ngIf="selectedVehicle.id==='Appraisal'">
+        <label for="MattressMissing">Mattress Missing </label>
+        <select formControlName="MattressMissing" class="form-control" placeholder="Select Mattress Missing">
+            <option  [ngValue]="''">Select Mattress Missing</option>
+            <option *ngFor="let opt of ['Yes','No']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-class"  *ngIf="selectedVehicle.id==='Appraisal'">
+        <label for="Roof">Roof </label>
+        <select formControlName="Roof" class="form-control" placeholder="Select Roof">
+            <option  [ngValue]="''">Select Roof</option>
+            <option *ngFor="let opt of ['No','Reseal','Oxidation','Repair']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-class"  *ngIf="selectedVehicle.id==='Appraisal'">
+        <label for="CarpetCleaning">Carpet Cleaning </label>
+        <select formControlName="CarpetCleaning" class="form-control" placeholder="Select Carpet Cleaning">
+            <option  [ngValue]="''">Select Carpet Cleaning</option>
+            <option *ngFor="let opt of ['Yes','No']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-class"  *ngIf="selectedVehicle.id==='Appraisal'">
+        <label for="DeepCleaning">Deep Cleaning </label>
+        <select formControlName="DeepCleaning" class="form-control" placeholder="Select Deep Cleaning">
+            <option  [ngValue]="''">Select Deep Cleaning</option>
+            <option *ngFor="let opt of ['Yes','No']"  [ngValue]="opt">{{opt}}</option>
+        </select>
+      </div>
+
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="p-4 "><button class="button " type="submit">Submit</button> </div>
+    </div>
+  </form>
+
+
+  <div class="showSelData"  *ngIf="displayPDF">
+    <div class="dataSection">
+      <p>Distance: </p>
+      <p>{{fileUploadForm.get('distance')!.value}}</p>
+    </div>
+    <div class="dataSection">
+      <p>Slides: </p>
+      <p>{{fileUploadForm.get('slides')!.value}}</p>
+    </div>
+    <div class="dataSection">
+      <p>Tires: </p>
+      <p>{{fileUploadForm.get('tires')!.value}}</p>
+    </div>
+    <div class="dataSection">
+      <p>Adjustment: </p>
+      <p>{{fileUploadForm.get('adjustment')!.value}}</p>
+    </div>
+    <div class="dataSection" *ngIf="!selectedVehicle.id.includes('5th_Wheel')">
+      <p>Miles Adjustment: </p>
+      <!-- <ng-container *ngIf="selectedVehicle.id==='Motorhome'">
+        <p>{{fileUploadForm.get('miles_adjustment')!.value=='NewerMotorhome2012Miles60K'?'Newer Motorhome | 2012 + , Miles 60K':'Motorhome Year 2000 +, Miles 60K-90K'}}</p>
+      </ng-container> -->
+      <ng-container *ngIf="selectedVehicle.id.includes('Motorhome')">
+        <p>{{fileUploadForm.get('miles_adjustment')!.value=='60KMiles'?'60K + Miles':'90K + Miles'}}</p>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center pdfClass"  *ngIf="displayPDF">
+      <!-- <pdf-viewer [src]="PDFfilePath" [render-text]="true"   [original-size]="true" [fit-to-page]="true"
+      style="height:1132px; width: 795px; "></pdf-viewer> -->
+      <div class="pdfContainer" id="htmlData">
+          <input type="text" [(ngModel)]="pdfData.headerName" class="headerName">
+          <input type="text" [(ngModel)]="pdfData.date" class="date">
+          <input type="text" ngModel="Manufacturer Information" class="manufacturerInfo" disabled>
+          <input type="text" [ngModel]="pdfData.address1" class="address">
+          <input type="text" [ngModel]="pdfData.address2" class="address">
+          <input type="text" [ngModel]="pdfData.address3" class="address">
+          <input type="text" [ngModel]="pdfData.address4" class="address">
+          <input type="text" [ngModel]="pdfData.address5" class="address">
+          <div class="vehicleSection VehicleType">
+            <label style="margin-right: 83px;">Vehicle Type: </label><input type="text" [ngModel]="pdfData.vehicleType" class="vehicleInput" disabled>
+          </div>
+          <div class="vehicleSection" *ngIf="pdfData.manufacturer!=''">
+            <label style="margin-right: 77px;">Manufacturer: </label><input type="text" [ngModel]="pdfData.manufacturer" class="vehicleInput" disabled>
+          </div>
+          <div class="vehicleSection" *ngIf="pdfData.year!=''">
+            <label style="margin-right: 145px;">Year: </label><input type="text" [(ngModel)]="pdfData.year" class="vehicleInput">
+          </div>
+          <div class="vehicleSection" *ngIf="pdfData.Series!=''">
+            <label style="margin-right: 131px;">Series: </label><input type="text" [(ngModel)]="pdfData.Series" class="vehicleInput">
+          </div>
+          <div class="vehicleSection" *ngIf="pdfData.Model!=''">
+            <label style="margin-right: 132px;">Model: </label><input type="text" [(ngModel)]="pdfData.Model" class="vehicleInput">
+          </div>
+          <div class="vehicleSection" *ngIf="pdfData.LengthWidth!=''">
+            <label style="margin-right: 63px;">Length x Width: </label><input type="text" [ngModel]="pdfData.LengthWidth" class="vehicleInput" disabled>
+          </div>
+          <div class="vehicleSection" *ngIf="pdfData.axles!=''&&!selectedVehicle.id.includes('Motorhome')">
+            <label style="margin-right: 136px;">Axles: </label><input type="text" [ngModel]="pdfData.axles" class="vehicleInput" disabled>
+          </div>
+          <div class="vehicleSection" *ngIf="pdfData.Length!=''"><!--  -->
+            <label style="margin-right: 125px;">Length: </label><input type="text" [ngModel]="pdfData.Length" class="vehicleInput" disabled>
+          </div>
+          <div class="vehicleSection" *ngIf="pdfData.CoachDesign!=''&&selectedVehicle.id.includes('Motorhome')"><!--  -->
+            <label style="margin-right: 72px;">Coach Design: </label><input type="text" [ngModel]="pdfData.CoachDesign" class="vehicleInput" disabled>
+          </div>
+          <div class="vehicleSection" *ngIf="pdfData.FloorPlan!=''&&selectedVehicle.id.includes('Motorhome')"><!--  -->
+            <label style="margin-right: 102px;">Floor Plan: </label><input type="text" [ngModel]="pdfData.FloorPlan" class="vehicleInput" disabled>
+          </div>
+          <div class="vehicleSection" *ngIf="pdfData.weight!=''">
+            <label style="margin-right: 128px;">Weight: </label><input type="text" [ngModel]="pdfData.weight" class="vehicleInput" disabled>
+          </div>
+          <div class="vehicleSection" *ngIf="pdfData.SelfContained!=''">
+            <label style="margin-right: 66px;">Self-Contained: </label><input type="text" [ngModel]="pdfData.SelfContained" class="vehicleInput" disabled>
+          </div>
+          <div class="vehicleSection" *ngIf="pdfData.slides!=''">
+            <label style="margin-right: 132px;">Slides: </label><input type="text" [ngModel]="pdfData.slides" class="vehicleInput" disabled>
+          </div>
+          <div class="vehicleSection">
+            <label style="margin-right: 20px;">Suggested List Price: </label><input type="text" [ngModel]="pdfData.suggestedListPrice" class="vehicleInput" disabled>
+          </div>
+          <input type="text" ngModel="Net Asset Value- Book Value" class="manufacturerInfo" disabled>
+          <div class="amountSection">
+            <label>TOTAL VALUE </label><input type="text" [(ngModel)]="pdfData.finalPriceStr" class="vehicleInput" >
+          </div>
+          <input *ngIf="pdfData.ManufacturerNote!=''" type="text" ngModel="Manufacturer Note:" class="manufacturerNote" disabled>
+          <!-- <div><label class="ManufacturerNoteLabel">{{pdfData.ManufacturerNote}}</label></div> -->
+          <div *ngIf="pdfData.ManufacturerNote!=''"><textarea id="ManufacturerNote" class="nots" rows="3" cols="125"  [(ngModel)]="pdfData.ManufacturerNote"  class="textareaInput textarea ManufacturerNote"></textarea></div>
+
+          <input *ngIf="pdfData.ModelNote!=''" type="text" ngModel="Model Note:" class="manufacturerNote" disabled>
+          <!-- <div><label class="ManufacturerNoteLabel">{{pdfData.ManufacturerNote}}</label></div> -->
+          <div *ngIf="pdfData.ModelNote!=''"><textarea id="ModelNote" class="nots" rows="3" cols="125"  [(ngModel)]="pdfData.ModelNote"  class="textareaInput textarea ManufacturerNote"></textarea></div>
+
+          <input *ngIf="pdfData.YearNote!=''" type="text" ngModel="Year Note:" class="manufacturerNote"  disabled>
+          <div *ngIf="pdfData.YearNote!=''"><textarea id="YearNote" class="nots" rows="8" cols="125"  [(ngModel)]="pdfData.YearNote"  class="textareaInput textarea YearNote"></textarea></div>
+          <!-- <div><label class="ManufacturerNoteLabel">{{pdfData.YearNote}}</label></div> -->
+
+          <div class="footerText">
+            All values and related content contained in this net asset value are the opinions of Gary’s Auto Sales Inc Valuation Services editorial staff. The values are provided as-is. Gary’s Auto Sales Valuation Services make no warranty express or implied, including, without limitation, any warranty or merchantability or fitness for a particular purpose, and they assume no responsibility for the accuracy of the value or other information published herein. Gary’s Auto Sales Inc Valuation Services is not liable for any special, incidental, punitive or consequential damages resulting from any use of this content including, without limitation, lost profits. For additional information, please see the Gary’s Auto Sales Inc Privacy Policy https://www.askgary.io/garys-privacy-policy and Terms of Use https://www.askgary.io/garys-terms-of-use.
+
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Notes</h4>
+      </div>
+      <div class="modal-body">
+        <p *ngFor="let item of notesList">{{item}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"
+                (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
